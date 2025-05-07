@@ -17,7 +17,7 @@ public class Payment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
     @Column(unique = true, nullable = false)
     private String transactionId;
@@ -26,7 +26,7 @@ public class Payment {
     @Column(nullable = false)
     private PaymentStatus paymentStatus;
 
-    @Column(nullable = false, precision = 10, scale = 0)
+    @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal amount;
 
     @CreationTimestamp
@@ -34,5 +34,4 @@ public class Payment {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
-
 }

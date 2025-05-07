@@ -1,8 +1,7 @@
 package com.aakash.project.rentIt.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -13,22 +12,26 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-@Table(uniqueConstraints = @UniqueConstraint(
-        name = "unique_hotel_room_date",
-        columnNames = {"hotel_id", "room_id", "date"}
+@Table(
+        uniqueConstraints = @UniqueConstraint(
+            name = "unique_hotel_room_date",
+            columnNames = {"hotel_id", "room_id", "date"}
 ))
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Inventory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hotel_id", nullable = false)
     private Hotel hotel;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "room_id", nullable = false)
+    @JoinColumn(name= "room_id", nullable = false)
     private Room room;
 
     @Column(nullable = false)
@@ -44,7 +47,7 @@ public class Inventory {
     private BigDecimal surgeFactor;
 
     @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal price;
+    private BigDecimal price; // basePrice * surgeFactor
 
     @Column(nullable = false)
     private String city;
@@ -57,5 +60,4 @@ public class Inventory {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
-
 }

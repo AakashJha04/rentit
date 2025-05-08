@@ -34,9 +34,11 @@ public class RoomServiceImpl implements RoomService{
         Room room = modelMapper.map(roomDto, Room.class);
         room.setHotel(hotel);
         room = roomRepository.save(room);
+
         if (hotel.getActive()) {
             inventoryService.initializeRoomForAYear(room);
         }
+
         return modelMapper.map(room, RoomDto.class);
     }
 
@@ -69,7 +71,7 @@ public class RoomServiceImpl implements RoomService{
         Room room = roomRepository
                 .findById(roomId)
                 .orElseThrow(() -> new ResourceNotFoundException("Room not found with ID: "+roomId));
-        inventoryService.deleteFutureInventories(room);
+        inventoryService.deleteAllInventories(room);
         roomRepository.deleteById(roomId);
     }
 }

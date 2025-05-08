@@ -1,6 +1,7 @@
 package com.aakash.project.rentIt.service;
 
 import com.aakash.project.rentIt.dto.HotelDto;
+import com.aakash.project.rentIt.dto.HotelInfoDto;
 
 public interface HotelService {
     HotelDto createNewHotel(HotelDto hotelDto);
@@ -13,4 +14,5 @@ public interface HotelService {
 
     void activateHotel(Long hotelId);
 
+    HotelInfoDto getHotelInfoById(Long hotelId);
 }
